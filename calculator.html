@@ -1,0 +1,104 @@
+<html>
+<head>
+  <title>Simple Calculator</title>
+  <style>
+    input {
+      padding: 10px;
+      margin: 5px;
+    }
+    .main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    width: 200px;
+    border: 1px solid black;
+    box-shadow: 1cm;
+    padding: 10px;
+    background-color: #614e4e;
+    }
+    button{
+        width: 47px;
+        height: 50px;
+    }
+    p{
+        color: white;
+        margin: 0px;
+        font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="main">
+<p>Mangesh Kadus Calculator</p>
+  <div>
+    <input type="text" id="result" readonly>
+  </div>
+
+  <div>
+    <button onclick="appendToResult('1')">1</button>
+    <button onclick="appendToResult('2')">2</button>
+    <button onclick="appendToResult('3')">3</button>
+    <button onclick="firstValue('+')">+</button>
+  </div>
+
+  <div>
+    <button onclick="appendToResult('4')">4</button>
+    <button onclick="appendToResult('5')">5</button>
+    <button onclick="appendToResult('6')">6</button>
+    <button onclick="firstValue('-')">-</button>
+  </div>
+
+  <div>
+    <button onclick="appendToResult('7')">7</button>
+    <button onclick="appendToResult('8')">8</button>
+    <button onclick="appendToResult('9')">9</button>
+    <button onclick="firstValue('*')">*</button>
+  </div>
+
+  <div>
+    <button onclick="appendToResult('0')">0</button>
+    <button onclick="clearResult()">C</button>
+    <button onclick="calculateResult()">=</button>
+    <button onclick="firstValue('/')">/</button>
+  </div>
+</div>
+
+  <script>
+    var a = localStorage;
+    function appendToResult(value) {
+      document.getElementById('result').value += value;
+    }
+
+    function clearResult() {
+      document.getElementById('result').value = '';
+    }
+    function firstValue(val){
+        localStorage.setItem('action',val);
+        localStorage.setItem('firstNum',parseInt(document.getElementById('result').value));
+        clearResult();
+    }
+    function calculateResult() {
+        var secondNum = parseInt(document.getElementById('result').value);
+        var result = secondNum;
+        firstNum = parseInt(localStorage.getItem('firstNum'));
+        action = localStorage.getItem('action');
+        if(action == '-'){
+            result = firstNum - secondNum;
+        }else if(action == '+') {
+            result = firstNum + secondNum;
+        }else if(action == '*') {
+            result = firstNum * secondNum;
+        }else if(action == '/' && secondNum!=0 ){
+            result =firstNum/secondNum
+        }else {
+            result = "Invalid Operation !!!"
+        }
+        document.getElementById('result').value = result;
+        localStorage.removeItem('action');
+        localStorage.removeItem('firstNum');
+    }
+  </script>
+
+</body>
+</html>
